@@ -11,6 +11,7 @@ export default function UseRef(){
     return(
         <div>
             <button onClick={Increment}>Click</button>
+           {/* // ui will never update <p>{countRef.current}</p> */}
         </div>
     );
 }

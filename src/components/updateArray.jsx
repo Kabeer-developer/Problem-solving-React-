@@ -4,26 +4,19 @@ export default function Array(){
   const [array,setArray] = useState(["a","b","c"]);
   const [input,setInput] = useState("");
 
-   function add(){
-      
-      setArray(a=> [...a,input]);
-      setInput("");
-   }
+  function add(){
+   setArray(a=> [...a,input]);
+   setInput("");
+  }
 
-   function remove(index){
-      setArray(array.filter((_,i)=> i!==index));
-   }
+  function deleteElement(index){
+   setArray(array.filter((_,i)=> index != i));
+  }
 
    return(<div>
-      <input type="text" id="input" value={input} onChange={(e)=> setInput(e.target.value)}></input>
-      <button onClick={add} >Add</button>
-
-      <ul>
-         {array.map((a,index)=> (
-            <li key={index}>{a}
-            <button onClick={()=> remove(index)}>remove</button></li>
-         ))}
-      </ul>
-      
+      <input value={input} onChange={(e)=> setInput(e.target.value)} placeholder="Enter Alphabet"></input>
+      <button onClick={()=> add()}>Add</button>
+      <ul>{array.map((a,i)=> 
+      <li key={i}>{a} <button onClick={()=> deleteElement(i)}>X</button> </li>)}</ul>
    </div>)
 }
