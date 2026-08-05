@@ -2,17 +2,17 @@ import { useState } from "react";
 
 function SearchFilter(){
     const [search,setSearch] = useState("");
-    const items = ["pineapple","Apple","Banana","Papaya","Pineapple"];
+    const items = ["pineapple","Apple","Banana","Papaya","pomogrenate"];
 
-    const filtered = items.filter((i)=> i.toLowerCase().includes(search.trim().toLowerCase()));
+   const filtered = items.filter((item,i)=> item.toLowerCase().includes(search.trim().toLowerCase()));
 
-    return(
-        <div>
-           <input placeholder="Search" onChange={(e)=> setSearch(e.target.value)} value={search}></input>
-           {filtered.map((item,i)=>
+   return(
+    <div>
+        <input value={search} onChange={(e)=> setSearch(e.target.value)} placeholder="Search"></input>
+        {filtered.map((item,i)=>
         <li key={i}>{item}</li>)}
-        </div>
-    )
+    </div>
+   )
 }
 
 export default SearchFilter;
