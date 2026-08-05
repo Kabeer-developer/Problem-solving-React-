@@ -8,20 +8,18 @@ function Pagination(){
         "Item 6", "Item 7", "Item 8", "Item 9", "Item 10",
         "Item 11", "Item 12", "Item 13", "Item 14", "Item 15","Item16"
     ];
-     const totalPages = Math.ceil(items.length/itemsPerPage);
-     const startIndex = (currentPage-1)*itemsPerPage;
-     const currentItems = items.slice(startIndex,itemsPerPage+startIndex)
+     
+    const totalPages = Math.ceil(items.length/itemsPerPage);
+    const startIndex = (currentPage-1)*itemsPerPage;
+    const currItems = items.slice(startIndex,startIndex+itemsPerPage);
    
      return(
         <div>
-           <div>
-             {currentItems.map((item,i)=> {
-                return <li key={i}>{item}</li>
-            })}
-           </div>
-            <button disabled={currentPage==1} onClick={()=> setCurrentPage((p)=> p-1)}>Previous</button>
-            page {currentPage} of {totalPages}
-            <button disabled={currentItems==totalPages} onClick={()=> setCurrentPage((p)=> p+1)}>Next</button>
+         {currItems.map((item,i)=> 
+         <li key={i}>{item}</li>)}
+         <button disabled={currentPage==1} onClick={()=> setCurrentPage(prev=> prev-1)}>prev</button>
+          {currentPage}
+           <button disabled={currentPage==totalPages} onClick={()=> setCurrentPage(prev=> prev+1)}>next</button>
         </div>
      )
 }
