@@ -5,14 +5,14 @@ export default function StarRating() {
   const stars = [1,2,3,4,5];
 
   return(
-    <div style={{fontSize:"40px"}}>
-        {stars.map((star)=> {
-            return <span key={star}
-             style={{cursor:"pointer",color: star <= rating ? "gold" : "gray"}}
-              onClick={()=> setRating(star)}>★</span>
-        })}
-         <p>Rating :{rating}</p>
-    </div>
+   <div style={{fontSize:"40px"}}>
+    {stars.map((star,i)=> {
+   return <button key={i} onClick={()=> setRating(i+1)} style={{color : rating>i ? "gold" : "grey"}}>★</button>
+    
+})}
+    <p>Rating : {rating}</p>
+    <button onClick={()=> setRating(0)}>Reset</button>
+   </div>
   );
   
 }
