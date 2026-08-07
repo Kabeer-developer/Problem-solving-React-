@@ -14,53 +14,57 @@ export default function ShoppingCart(){
         setCart([...cart,product]);
     }
 
-    function delCart(index){
-        setCart(cart.filter((item,i)=> i!==index));
-    }
-
-    function quantityInc(index){
-        const updatedCart = cart.map((item,i)=> i==index?{...item,quantity:item.quantity+1}:item)
+    function delCartItem(index){
+        const updatedCart = cart.filter((item,i)=> index != i);
         setCart(updatedCart);
     }
 
-    function quantityDec(index){
-        const updatedCart = cart.map((item,i)=>{
-             if(item.quantity==1){
-                window.alert("Quantity Cannot be 0");
-                return item;
-             }
-           return  i==index?{...item,quantity:item.quantity-1}:item
-    })
+    function incQuantity(index){
+        const updatedCart = cart.map((item,i)=> index == i ? {...item,quantity: item.quantity+1}:item);
         setCart(updatedCart);
     }
+
+    function decQuantity(index){
+         if(cart[index].quantity==1){
+            delCartItem(index);
+            return;
+        }
+        const updatedCart = cart.map((item,i)=>
+           
+             index == i ? {...item,quantity: item.quantity-1}:item);
+        setCart(updatedCart);
+    }
+    
     return(
         <div>
-           <div>
-            {products.map((item,index)=>{
-            return <div key={index}>
-                Item : {item.id} <br></br>
-                 Name : {item.name} <br></br>
-                 Price : {item.price}
-                 <br></br>
-                 <button onClick={()=> addToCart(item)} >
-                    Add to Cart
-                 </button>
-                    </div>
-           })}
-           </div>
-           <br></br>
-           <div>
-            <h1>Your Cart</h1>
-            {cart.map((item,index)=> {
+          <div>
+            {products.map((item,index)=> {
                 return <div key={index}>
-                   Name: {item.name} Price : {item.price}
-                   <br></br>
-                  <button onClick={()=> quantityDec(index)}>-</button>{item.quantity}<button onClick={()=> quantityInc(index)}>+</button> <br></br>
-                   <button onClick={()=> delCart(index)}>Remove</button>
+                    <p>Item id : {index+1} </p>
+                    <p>Item Name : {item.name}</p>
+                    <p>Item Price : {item.price}</p>
+                    <button onClick={()=> addToCart(item)}>Add to Cart</button>
                 </div>
             })}
-           </div>
-           Total : {cart.reduce((total,item)=> total+item.price*item.quantity,0)}
+          </div>
+          <br></br>
+          <div> Your Cart
+            {cart.map((item,index)=> {
+                return <div key={index}>
+                    <p>Item Name : {item.name}</p>
+                    <p>Item Price : {item.price} </p>
+                    <p>Item Quantity :
+                        <button onClick={()=> decQuantity(index)}>-</button>
+                         {item.quantity}
+                         <button onClick={()=> incQuantity(index)}>+</button>
+                         </p>
+                    
+                    <button onClick={()=> delCartItem(index)}>Remove</button>
+                </div>
+            })}
+          </div>
+
+          Total : {cart.reduce((total,item)=> item.price * item.quantity ,0)}
         </div>
     )
 }
